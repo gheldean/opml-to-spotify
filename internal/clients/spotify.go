@@ -33,7 +33,7 @@ func login(cmd *cobra.Command) *spotify.Client {
 	verifier := pkce.NewVerifier(pkce.LenMax)
 
 	s := http.Server{
-		Addr: "localhost:8080",
+		Addr: "127.0.0.1:8080",
 	}
 
 	state := uuid.New().String()
@@ -41,7 +41,7 @@ func login(cmd *cobra.Command) *spotify.Client {
 	auth := spotifyauth.New(
 		spotifyauth.WithClientID(config.ClientID(cmd)),
 		spotifyauth.WithScopes(spotifyauth.ScopeUserLibraryRead, spotifyauth.ScopeUserLibraryModify),
-		spotifyauth.WithRedirectURL("http://localhost:8080/callback"),
+		spotifyauth.WithRedirectURL("http://127.0.0.1:8080/callback"),
 	)
 
 	tokenChan := make(chan *oauth2.Token, 1)
